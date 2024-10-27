@@ -34,8 +34,45 @@ const createNav = () => {
     a.className = "section-link";
     a.textContent = sectionNav;
 
+    listItem.id = `nav-${sectionId}`;
     listItem.appendChild(a);
     navbarList.appendChild(listItem);
+  });
+};
+
+// Check if the section is in the viewport
+
+/**
+ * Checks if a section is in the viewport.
+ * @param {HTMLElement} element - The checked element.
+ * @returns {boolean} - True if the section is in the viewport, false otherwise.
+ *
+ */
+const isInViewport = (element) => {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+};
+
+// set the section active state
+
+/**
+ * Sets the active state of a section based on the viewport.
+ *
+ */
+const setActiveSection = () => {
+  sections.forEach((section) => {
+    const sectionId = section.getAttribute("id");
+    const listItem = document.getElementById(`nav-${sectionId}`);
+
+    isInViewport(section)
+      ? listItem.classList.add("active")
+      : listItem.classList.remove("active");
   });
 };
 
@@ -70,6 +107,9 @@ document.addEventListener("DOMContentLoaded", createNav);
 
 // Scroll to section on link click
 navbarList.addEventListener("click", (event) => scrollToSection(event));
+
+// Set the ListItem in the navbar active
+document.addEventListener("scroll", setActiveSection);
 
 // Scroll to top on button click
 scrollToTopBtn.addEventListener("click", scrollToTop);
