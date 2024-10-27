@@ -98,6 +98,14 @@ section {
   transition: ease 0.3s all;
 }
 
+/* Style for active section */
+
+.navbar__menu li.active {
+  background: rgba(95, 17, 204, 0.39);
+  color: #fff;
+  transition: ease 0.3s all;
+}
+
 /* Header Styles */
 .page__header {
   background: #fff;
